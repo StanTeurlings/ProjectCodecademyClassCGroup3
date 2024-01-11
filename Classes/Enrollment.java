@@ -1,43 +1,80 @@
 package Classes;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Enrollment {
-    // variables
-    private Student student;
-    private Course course;
-    private LocalDate enrollmenDate;
+    private String studentEmail;
+    private String courseName;
+    private String certificateName;
+    private Date enrollmentDate;
+    private String certificateId;
+    private String grade;
+    private String employeeName;
 
-    // constructor
-    public Enrollment(Student student, Course course, LocalDate enrollmenDate) {
-        this.student = student;
-        this.course = course;
-        this.enrollmenDate = enrollmenDate;
+    public Enrollment(String studentEmail, String courseName, String certificateName,
+                      Date enrollmentDate, String certificateId, String grade, String employeeName) {
+        this.studentEmail = studentEmail;
+        this.courseName = courseName;
+        this.certificateName = certificateName;
+        this.enrollmentDate = enrollmentDate;
+        this.certificateId = certificateId;
+        this.grade = grade;
+        this.employeeName = employeeName;
     }
 
-    // getters
-    public Course getCourse() {
-        return course;
+    public String getStudentEmail() {
+        return studentEmail;
     }
 
-    public LocalDate getEnrollmenDate() {
-        return enrollmenDate;
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getCourseName() {
+        return courseName;
     }
 
-    // setters
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
     }
 
-    public void setEnrollmenDate(LocalDate enrollmenDate) {
-        this.enrollmenDate = enrollmenDate;
+    public String getCertificateName() {
+        return certificateName;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setCertificateName(String certificateName) {
+        this.certificateName = certificateName;
+    }
+
+    public Date getEnrollmentDate() {
+        return enrollmentDate;
+    }
+
+    public void setEnrollmentDate(Date enrollmentDate) {
+        this.enrollmentDate = enrollmentDate;
+    }
+
+    public String getCertificateId() {
+        return certificateId;
+    }
+
+    public void setCertificateId(String certificateId) {
+        this.certificateId = certificateId;
+    }
+
+    public String getGrade() {
+        return grade;
+    }
+
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 }
