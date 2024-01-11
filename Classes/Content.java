@@ -13,7 +13,6 @@ public class Content {
     private List<Module> modules;
     private List<Webcast> webcasts;
 
-    // Constructor to create a new Content object
     public Content(String contentID, Date publicationDate, String status, String title, String description) {
         this.contentID = contentID;
         this.publicationDate = publicationDate;
@@ -24,7 +23,6 @@ public class Content {
         this.webcasts = new ArrayList<>();
     }
 
-    // Getters and setters for contentID
     public String getContentID() {
         return contentID;
     }
@@ -33,7 +31,6 @@ public class Content {
         this.contentID = contentID;
     }
 
-    // Getters and setters for publicationDate
     public Date getPublicationDate() {
         return publicationDate;
     }
@@ -42,7 +39,6 @@ public class Content {
         this.publicationDate = publicationDate;
     }
 
-    // Getters and setters for status
     public String getStatus() {
         return status;
     }
@@ -51,7 +47,6 @@ public class Content {
         this.status = status;
     }
 
-    // Getters and setters for title
     public String getTitle() {
         return title;
     }
@@ -60,7 +55,6 @@ public class Content {
         this.title = title;
     }
 
-    // Getters and setters for description
     public String getDescription() {
         return description;
     }
@@ -69,7 +63,6 @@ public class Content {
         this.description = description;
     }
 
-    // Getters and setters for modules
     public List<Module> getModules() {
         return modules;
     }
@@ -78,12 +71,10 @@ public class Content {
         this.modules = modules;
     }
 
-    // Method to add a module to the content
     public void addModule(Module module) {
         this.modules.add(module);
     }
 
-    // Getters and setters for webcasts
     public List<Webcast> getWebcasts() {
         return webcasts;
     }
@@ -92,7 +83,6 @@ public class Content {
         this.webcasts = webcasts;
     }
 
-    // Method to add a webcast to the content
     public void addWebcast(Webcast webcast) {
         this.webcasts.add(webcast);
     }
