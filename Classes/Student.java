@@ -1,105 +1,96 @@
 package Classes;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Student {
-    // variables
     private String studentEmail;
     private String studentName;
-    private LocalDate brithDate;
+    private Date birthdate;
     private String gender;
     private String address;
     private String city;
     private String country;
-    private ArrayList<Modules> watchedModules;
-    private ArrayList<Certificate> certificates;
+    private List<Course> courses;
 
-    // constructer
-    public Student(String studentEmail, String studentName, LocalDate birthDate, String gender, String address,
-            String city, String country) {
+    public Student(String studentEmail, String studentName, Date birthdate,
+                   String gender, String address, String city, String country) {
         this.studentEmail = studentEmail;
         this.studentName = studentName;
-        this.brithDate = birthDate;
+        this.birthdate = birthdate;
         this.gender = gender;
         this.address = address;
         this.city = city;
         this.country = country;
-        this.watchedModules = new ArrayList<>();
-        this.certificates = new ArrayList<>();
+        this.courses = new ArrayList<>();
     }
 
-    // getters
     public String getStudentEmail() {
         return studentEmail;
+    }
+
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 
     public String getStudentName() {
         return studentName;
     }
 
-    public LocalDate getBrithDate() {
-        return brithDate;
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public ArrayList<Modules> getWatchedModules() {
-        return watchedModules;
-    }
-
-    public ArrayList<Certificate> getCertificates() {
-        return certificates;
-    }
-
-    // setters
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
-    }
-
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
-
-    public void setBrithDate(LocalDate brithDate) {
-        this.brithDate = brithDate;
-    }
-
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
     }
 
-    public void setWatchedModules(ArrayList<Modules> watchedModules) {
-        this.watchedModules = watchedModules;
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    public void setCertificates(ArrayList<Certificate> certificates) {
-        this.certificates = certificates;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public void addCourse(Course course) {
+        this.courses.add(course);
     }
 }
