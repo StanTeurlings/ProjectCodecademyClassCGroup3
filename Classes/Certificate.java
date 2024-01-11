@@ -1,41 +1,40 @@
 package Classes;
 
+import java.util.List;
+
 public class Certificate {
-    // variables
-    private int certificateID;
-    private double grade;
-    private String employeeName;
+    private String certificateName;
+    private List<Course> courses; // Assuming a many-to-many relationship with Course
 
-    // constructor
-    public Certificate(int certificateID, double grade, String employeeName) {
-        this.certificateID = certificateID;
-        this.grade = grade;
-        this.employeeName = employeeName;
+    // Constructor to create a new Certificate object
+    public Certificate(String certificateName) {
+        this.certificateName = certificateName;
     }
 
-    // getters
-    public int getCertificateID() {
-        return certificateID;
+    // Getter and setter for certificateName
+    public String getCertificateName() {
+        return certificateName;
     }
 
-    public String getEmployeeName() {
-        return employeeName;
+    public void setCertificateName(String certificateName) {
+        this.certificateName = certificateName;
     }
 
-    public double getGrade() {
-        return grade;
+    // Getter and setter for courses
+    public List<Course> getCourses() {
+        return courses;
     }
 
-    // setters
-    public void setCertificateID(int certificateID) {
-        this.certificateID = certificateID;
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
-    public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
-    }
-
-    public void setGrade(double grade) {
-        this.grade = grade;
+    // Method to add a course to the certificate's list of courses
+    public void addCourse(Course course) {
+        if (this.courses != null) {
+            this.courses.add(course);
+        } else {
+            throw new IllegalStateException("Courses list is not initialized.");
+        }
     }
 }
