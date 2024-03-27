@@ -27,6 +27,7 @@ public class Students {
         loadDataFromDatabase();
     }
 
+    @SuppressWarnings("unchecked")
     private void setupTableColumns() {
         TableColumn<Student, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
@@ -49,8 +50,7 @@ public class Students {
         TableColumn<Student, String> countryColumn = new TableColumn<>("Country");
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn,
-                countryColumn);
+        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn, countryColumn);
         table.setItems(data);
     }
 
