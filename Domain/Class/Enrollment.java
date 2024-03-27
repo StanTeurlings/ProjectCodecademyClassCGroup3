@@ -1,38 +1,33 @@
-package Classes;
+package Domain.Class;
 
 import java.time.LocalDate;
 
 public class Enrollment {
-    private String studentEmail;
-    private String courseName;
-    private String certificateName;
+    private Student student;
+    private Course course;
     private LocalDate enrollmentDate;
-    private int certificateId;
-    private String grade;
-    private String employeeName;
 
-    public String getStudentEmail() {
-        return studentEmail;
+    public Enrollment(Student student, Course course, LocalDate enrollmentDate) {
+        this.student = student;
+        this.course = course;
+        this.enrollmentDate = enrollmentDate;
     }
 
-    public void setStudentEmail(String studentEmail) {
-        this.studentEmail = studentEmail;
+    // Getters and setters
+    public Student getStudent() {
+        return student;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public Course getCourse() {
+        return course;
     }
 
-    public String getCertificateName() {
-        return certificateName;
-    }
-
-    public void setCertificateName(String certificateName) {
-        this.certificateName = certificateName;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public LocalDate getEnrollmentDate() {
@@ -42,20 +37,34 @@ public class Enrollment {
     public void setEnrollmentDate(LocalDate enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
+}
 
-    public int getCertificateId() {
-        return certificateId;
+// Certificate class
+class Certificate {
+    private int certificateID;
+    private double grade;
+    private String employeeName;
+
+    public Certificate(int certificateID, double grade, String employeeName) {
+        this.certificateID = certificateID;
+        this.grade = grade;
+        this.employeeName = employeeName;
     }
 
-    public void setCertificateId(int certificateId) {
-        this.certificateId = certificateId;
+    // Getters and setters
+    public int getCertificateID() {
+        return certificateID;
     }
 
-    public String getGrade() {
+    public void setCertificateID(int certificateID) {
+        this.certificateID = certificateID;
+    }
+
+    public double getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 
