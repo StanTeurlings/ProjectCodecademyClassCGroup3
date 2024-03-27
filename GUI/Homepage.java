@@ -30,9 +30,9 @@ public class Homepage extends Application {
             primaryStage.setScene(coursesLayout); // Set the Courses scene to the primary stage
         });
         enrollmentsButton.setOnAction(e -> {
-            Students studentsView = new Students(primaryStage);
-            Scene studentLayout = studentsView.getStudentLayout(); // Change the type to Scene
-            primaryStage.setScene(studentLayout); // Remove the 'new Scene' constructor
+            Enrollments enrollmentsView = new Enrollments(primaryStage); // Assuming Enrollments class is defined
+            Scene enrollmentsLayout = enrollmentsView.getEnrollmentsLayout(); // Change the method name accordingly
+            primaryStage.setScene(enrollmentsLayout);
         });
         certificatesButton.setOnAction(e -> {
             Students studentsView = new Students(primaryStage);
