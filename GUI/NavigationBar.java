@@ -20,6 +20,18 @@ public class NavigationBar {
         // Create menus
         Menu homeMenu = new Menu("Home");
         Menu studentsMenu = new Menu("Students");
+        Menu coursesMenu = new Menu("Courses");
+        Menu enrollmentsMenu = new Menu("Enrollments");
+        Menu certificatesMenu = new Menu("Certificates");
+
+        // Create menu items for Home menu
+        MenuItem homeMenuItem = new MenuItem("Home");
+        homeMenuItem.setOnAction(e -> {
+            // Navigate back to the homepage
+            Homepage homepage = new Homepage();
+            homepage.start(primaryStage);
+        });
+        homeMenu.getItems().add(homeMenuItem);
 
         // Create studentsMenu items
         MenuItem addStudent = new MenuItem("New Student");
@@ -27,15 +39,26 @@ public class NavigationBar {
         MenuItem deleteStudent = new MenuItem("Delete Student");
         studentsMenu.getItems().addAll(addStudent, editStudent, deleteStudent);
 
-        // Add menus to the MenuBar
-        menuBar.getMenus().addAll(homeMenu, studentsMenu);
+        // Create coursesMenu items
+        MenuItem addCourse = new MenuItem("New Course");
+        MenuItem editCourse = new MenuItem("Edit Course");
+        MenuItem deleteCourse = new MenuItem("Delete Course");
+        coursesMenu.getItems().addAll(addCourse, editCourse, deleteCourse);
 
-        // Example: Link back to homepage
-        homeMenu.setOnAction(e -> {
-            // Assume Homepage is another scene or stage you wish to navigate to
-            Homepage homepage = new Homepage();
-            homepage.start(primaryStage);
-        });
+        // Create enrollmentsMenu items
+        MenuItem addEnrollment = new MenuItem("New Enrollment");
+        MenuItem editEnrollment = new MenuItem("Edit Enrollment");
+        MenuItem deleteEnrollment = new MenuItem("Delete Enrollment");
+        enrollmentsMenu.getItems().addAll(addEnrollment, editEnrollment, deleteEnrollment);
+
+        // Create certificatesMenu items
+        MenuItem addCertificate = new MenuItem("New Certificate");
+        MenuItem editCertificate = new MenuItem("Edit Certificate");
+        MenuItem deleteCertificate = new MenuItem("Delete Certificate");
+        certificatesMenu.getItems().addAll(addCertificate, editCertificate, deleteCertificate);
+
+        // Add menus to the MenuBar
+        menuBar.getMenus().addAll(homeMenu, studentsMenu, coursesMenu, enrollmentsMenu, certificatesMenu);
 
         return menuBar;
     }
