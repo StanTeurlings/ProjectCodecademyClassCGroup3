@@ -35,6 +35,12 @@ public class NavigationBar {
 
         // Create studentsMenu items
         MenuItem addStudent = new MenuItem("New Student");
+        MenuItem viewStudents = new MenuItem("Students");
+        viewStudents.setOnAction(e -> {
+            Students studentsPage = new Students(primaryStage);
+            primaryStage.setScene(studentsPage.getStudentLayout());
+        });
+
         addStudent.setOnAction(e -> {
             AddStudent addStudentWindow = new AddStudent(primaryStage); // Pass primaryStage to AddStudent constructor
             primaryStage.setScene(addStudentWindow.getAddStudentScene());
@@ -43,25 +49,40 @@ public class NavigationBar {
 
         MenuItem editStudent = new MenuItem("Edit Student");
         MenuItem deleteStudent = new MenuItem("Delete Student");
-        studentsMenu.getItems().addAll(addStudent, editStudent, deleteStudent);
+        studentsMenu.getItems().addAll(viewStudents, addStudent, editStudent, deleteStudent);
 
         // Create coursesMenu items
+        MenuItem viewCourses = new MenuItem("Courses");
+        viewCourses.setOnAction(e -> {
+            Courses coursesPage = new Courses(primaryStage);
+            primaryStage.setScene(coursesPage.getCoursesLayout());
+        });
         MenuItem addCourse = new MenuItem("New Course");
         MenuItem editCourse = new MenuItem("Edit Course");
         MenuItem deleteCourse = new MenuItem("Delete Course");
-        coursesMenu.getItems().addAll(addCourse, editCourse, deleteCourse);
+        coursesMenu.getItems().addAll(viewCourses, addCourse, editCourse, deleteCourse);
 
         // Create enrollmentsMenu items
+        MenuItem viewEnrollments = new MenuItem("Enrollments");
+        viewEnrollments.setOnAction(e -> {
+            Enrollments enrollmentsPage = new Enrollments(primaryStage);
+            primaryStage.setScene(enrollmentsPage.getEnrollmentsLayout());
+        });
         MenuItem addEnrollment = new MenuItem("New Enrollment");
         MenuItem editEnrollment = new MenuItem("Edit Enrollment");
         MenuItem deleteEnrollment = new MenuItem("Delete Enrollment");
-        enrollmentsMenu.getItems().addAll(addEnrollment, editEnrollment, deleteEnrollment);
+        enrollmentsMenu.getItems().addAll(viewEnrollments, addEnrollment, editEnrollment, deleteEnrollment);
 
         // Create certificatesMenu items
+        MenuItem viewCertificates = new MenuItem("Certificates");
+        viewCertificates.setOnAction(e -> {
+            Certificates certificatesPage = new Certificates(primaryStage);
+            primaryStage.setScene(certificatesPage.getCertificatesLayout());
+        });
         MenuItem addCertificate = new MenuItem("New Certificate");
         MenuItem editCertificate = new MenuItem("Edit Certificate");
         MenuItem deleteCertificate = new MenuItem("Delete Certificate");
-        certificatesMenu.getItems().addAll(addCertificate, editCertificate, deleteCertificate);
+        certificatesMenu.getItems().addAll(viewCertificates, addCertificate, editCertificate, deleteCertificate);
 
         // Add menus to the MenuBar
         menuBar.getMenus().addAll(homeMenu, studentsMenu, coursesMenu, enrollmentsMenu, certificatesMenu);
