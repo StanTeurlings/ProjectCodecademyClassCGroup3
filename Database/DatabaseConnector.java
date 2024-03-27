@@ -11,18 +11,23 @@ public class DatabaseConnector {
 
     public static Connection getConnection() {
         try {
+            // Load the SQLServer JDBC driver
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            
+            // Establish the database connection
+            Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            System.out.println("Connected to the database.");
+            return connection;
         } catch (SQLException e) {
-            System.out.println("SQLException: " + e.getMessage());
-            System.out.println("SQLState: " + e.getSQLState());
-            System.out.println("VendorError: " + e.getErrorCode());
+            System.err.println("SQLException: " + e.getMessage());
+            System.err.println("SQLState: " + e.getSQLState());
+            System.err.println("VendorError: " + e.getErrorCode());
             e.printStackTrace(); // Add stack trace for more details
-            return null;
         } catch (ClassNotFoundException e) {
-            System.out.println("JDBC Driver not found: " + e.getMessage());
+            System.err.println("JDBC Driver not found: " + e.getMessage());
             e.printStackTrace(); // Add stack trace for more details
-            return null;
-        }        
+        }
+        
+        return null;
     }
 }
