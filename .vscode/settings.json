@@ -16,6 +16,12 @@
     "/Users/tijn/Downloads/javafx-sdk-21.0.1 2/lib/javafx.graphics.jar",
     "/Users/tijn/Downloads/javafx-sdk-21.0.1 2/lib/javafx.media.jar",
     "/Users/tijn/Downloads/javafx-sdk-21.0.1 2/lib/javafx-swt.jar",
-    "/Users/tijn/Downloads/javafx-sdk-21.0.1 2/lib/javafx.fxml.jar"
+    "/Users/tijn/Downloads/javafx-sdk-21.0.1 2/lib/javafx.fxml.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre11-javadoc.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre8.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre8-sources.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre8-javadoc.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre11.jar",
+    "/Users/tijn/Downloads/sqljdbc_12.6/enu/jars/mssql-jdbc-12.6.1.jre11-sources.jar"
   ]
 }
