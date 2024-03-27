@@ -23,7 +23,7 @@ public class DatabaseHelper {
                     student = new Student(
                             rs.getString("StudentEmail"),
                             rs.getString("StudentName"),
-                            rs.getString("Birthdate"),
+                            rs.getDate("Birthdate"),
                             rs.getString("Gender"),
                             rs.getString("Address"),
                             rs.getString("City"),
