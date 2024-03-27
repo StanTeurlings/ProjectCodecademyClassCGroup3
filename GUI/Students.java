@@ -1,7 +1,7 @@
 package GUI;
 
-import Classes.Student;
 import Database.DatabaseConnector;
+import Domain.Class.Student;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Parent;
@@ -53,7 +53,8 @@ public class Students {
         TableColumn<Student, String> countryColumn = new TableColumn<>("Country");
         countryColumn.setCellValueFactory(cellData -> cellData.getValue().countryProperty());
 
-        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn, countryColumn);
+        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn,
+                countryColumn);
         table.setItems(data);
     }
 
@@ -66,7 +67,7 @@ public class Students {
             }
 
             try (Statement stmt = conn.createStatement();
-                 ResultSet rs = stmt.executeQuery("SELECT * FROM Student")) {
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM Student")) {
 
                 if (!rs.isBeforeFirst()) {
                     System.out.println("No data found.");
@@ -75,14 +76,13 @@ public class Students {
 
                 while (rs.next()) {
                     Student student = new Student(
-                        rs.getString("StudentEmail"),
-                        rs.getString("StudentName"),
-                        rs.getDate("Birthdate").toString(),
-                        rs.getString("Gender"),
-                        rs.getString("Address"),
-                        rs.getString("City"),
-                        rs.getString("Country")
-                    );
+                            rs.getString("StudentEmail"),
+                            rs.getString("StudentName"),
+                            rs.getDate("Birthdate").toString(),
+                            rs.getString("Gender"),
+                            rs.getString("Address"),
+                            rs.getString("City"),
+                            rs.getString("Country"));
                     data.add(student);
                 }
             }
