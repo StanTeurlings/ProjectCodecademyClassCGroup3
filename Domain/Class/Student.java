@@ -1,12 +1,12 @@
 package Domain.Class;
 
 import java.util.ArrayList;
-import java.util.Date; // Import Date class
+import java.util.Date;
 
 public class Student {
     private String studentEmail;
     private String studentName;
-    private Date birthDate; // Use Date for birth date
+    private Date birthDate;
     private String gender;
     private String address;
     private String city;
@@ -14,7 +14,7 @@ public class Student {
     private ArrayList<Course> watchedCourses;
 
     public Student(String studentEmail, String studentName, Date birthDate,
-            String gender, String address, String city, String country) {
+                   String gender, String address, String city, String country) {
         this.studentEmail = studentEmail;
         this.studentName = studentName;
         this.birthDate = birthDate;
@@ -25,7 +25,6 @@ public class Student {
         this.watchedCourses = new ArrayList<>();
     }
 
-    // Getters and setters
     public String getStudentEmail() {
         return studentEmail;
     }
