@@ -35,6 +35,12 @@ public class NavigationBar {
 
         // Create studentsMenu items
         MenuItem addStudent = new MenuItem("New Student");
+        addStudent.setOnAction(e -> {
+            AddStudent addStudentWindow = new AddStudent(primaryStage); // Pass primaryStage to AddStudent constructor
+            primaryStage.setScene(addStudentWindow.getAddStudentScene());
+            primaryStage.show();
+        });
+
         MenuItem editStudent = new MenuItem("Edit Student");
         MenuItem deleteStudent = new MenuItem("Delete Student");
         studentsMenu.getItems().addAll(addStudent, editStudent, deleteStudent);

@@ -8,13 +8,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.converter.DateStringConverter;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date; // Import Date class
 
 public class Students {
     private final TableView<Student> table = new TableView<>();
@@ -35,8 +38,9 @@ public class Students {
         TableColumn<Student, String> nameColumn = new TableColumn<>("Name");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("studentName"));
 
-        TableColumn<Student, String> birthdateColumn = new TableColumn<>("Birthdate");
-        birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("birthdate"));
+        TableColumn<Student, Date> birthdateColumn = new TableColumn<>("Birthdate");
+        birthdateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
+        birthdateColumn.setCellFactory(TextFieldTableCell.forTableColumn(new DateStringConverter("dd-MM-yyyy")));
 
         TableColumn<Student, String> genderColumn = new TableColumn<>("Gender");
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
@@ -61,20 +65,20 @@ public class Students {
                 System.err.println("Failed to make database connection!");
                 return;
             }
-    
+
             try (Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery("SELECT * FROM Student")) {
-    
+
                 if (!rs.isBeforeFirst()) {
                     System.out.println("No data found.");
                     return;
                 }
-    
+
                 while (rs.next()) {
                     Student student = new Student(
                             rs.getString("StudentEmail"),
                             rs.getString("StudentName"),
-                            rs.getString("Birthdate"), // Assuming Birthdate is stored as a String
+                            rs.getDate("Birthdate"), // Use getDate for Date type
                             rs.getString("Gender"),
                             rs.getString("Address"),
                             rs.getString("City"),
@@ -86,7 +90,7 @@ public class Students {
             System.err.println("Error connecting to the database:");
             e.printStackTrace();
         }
-    }    
+    }
 
     public Scene getStudentLayout() {
         NavigationBar navigationBar = new NavigationBar(primaryStage);

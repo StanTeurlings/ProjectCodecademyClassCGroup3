@@ -7,15 +7,15 @@ import Domain.Enummeration.Difficulty;
 
 public class Course {
     private String courseName;
-    private String subject;
+    private String courseSubject;
     private String introductionText;
     private Difficulty difficulty;
 
     private List<Module> modules;
 
-    public Course(String courseName, String subject, String introductionText, Difficulty difficulty) {
+    public Course(String courseName, String courseSubject, String introductionText, Difficulty difficulty) {
         this.courseName = courseName;
-        this.subject = subject;
+        this.courseSubject = courseSubject;
         this.introductionText = introductionText;
         this.difficulty = difficulty;
         this.modules = new ArrayList<>();
@@ -30,12 +30,12 @@ public class Course {
         this.courseName = courseName;
     }
 
-    public String getSubject() {
-        return subject;
+    public String getCourseSubject() {
+        return courseSubject;
     }
 
-    public void setSubject(String subject) {
-        this.subject = subject;
+    public void setCourseSubject(String courseSubject) {
+        this.courseSubject = courseSubject;
     }
 
     public String getIntroductionText() {
