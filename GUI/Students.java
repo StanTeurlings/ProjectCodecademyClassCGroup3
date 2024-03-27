@@ -58,23 +58,23 @@ public class Students {
         data.clear();
         try (Connection conn = DatabaseConnector.getConnection()) {
             if (conn == null) {
-                System.out.println("Failed to make database connection!");
+                System.err.println("Failed to make database connection!");
                 return;
             }
-
+    
             try (Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery("SELECT * FROM Student")) {
-
+                 ResultSet rs = stmt.executeQuery("SELECT * FROM Student")) {
+    
                 if (!rs.isBeforeFirst()) {
                     System.out.println("No data found.");
                     return;
                 }
-
+    
                 while (rs.next()) {
                     Student student = new Student(
                             rs.getString("StudentEmail"),
                             rs.getString("StudentName"),
-                            rs.getDate("Birthdate").toString(),
+                            rs.getString("Birthdate"), // Assuming Birthdate is stored as a String
                             rs.getString("Gender"),
                             rs.getString("Address"),
                             rs.getString("City"),
@@ -83,10 +83,10 @@ public class Students {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Error connecting to the database:");
+            System.err.println("Error connecting to the database:");
             e.printStackTrace();
         }
-    }
+    }    
 
     public Scene getStudentLayout() {
         NavigationBar navigationBar = new NavigationBar(primaryStage);
