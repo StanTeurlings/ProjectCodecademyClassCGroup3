@@ -31,6 +31,7 @@ public class Certificates {
         TableColumn<Certificate, String> certificateNameColumn = new TableColumn<>("Certificate Name");
         certificateNameColumn.setCellValueFactory(new PropertyValueFactory<>("certificateName"));
         table.getColumns().add(certificateNameColumn);
+        table.setItems(data);
     }
 
     private void loadDataFromDatabase() {
