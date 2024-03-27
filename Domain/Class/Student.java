@@ -1,18 +1,19 @@
 package Domain.Class;
 
 import java.util.ArrayList;
+import java.util.Date; // Import Date class
 
 public class Student {
     private String studentEmail;
     private String studentName;
-    private String birthDate; // Assuming this is a String representation of the date
+    private Date birthDate; // Use Date for birth date
     private String gender;
     private String address;
     private String city;
     private String country;
     private ArrayList<Course> watchedCourses;
 
-    public Student(String studentEmail, String studentName, String birthDate,
+    public Student(String studentEmail, String studentName, Date birthDate,
             String gender, String address, String city, String country) {
         this.studentEmail = studentEmail;
         this.studentName = studentName;
@@ -41,11 +42,11 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public String getBirthDate() {
+    public Date getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(String birthDate) {
+    public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
     }
 
