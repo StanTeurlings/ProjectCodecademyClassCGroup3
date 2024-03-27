@@ -35,9 +35,9 @@ public class Homepage extends Application {
             primaryStage.setScene(enrollmentsLayout);
         });
         certificatesButton.setOnAction(e -> {
-            Students studentsView = new Students(primaryStage);
-            Scene studentLayout = studentsView.getStudentLayout(); // Change the type to Scene
-            primaryStage.setScene(studentLayout); // Remove the 'new Scene' constructor
+            Certificates certificatesView = new Certificates(primaryStage); // Assuming you have a Certificates class
+            Scene certificatesLayout = certificatesView.getCertificatesLayout(); // Change the method name if needed
+            primaryStage.setScene(certificatesLayout); // Set the scene to the certificates layout
         });
 
         VBox layout = new VBox(10, studentsButton, coursesButton, enrollmentsButton, certificatesButton);
