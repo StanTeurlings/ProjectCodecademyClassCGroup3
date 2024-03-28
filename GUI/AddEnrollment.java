@@ -10,11 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.List;
 
 import Database.DatabaseConnector;
-import Domain.Class.Course;
-import Domain.Class.Student;
 
 public class AddEnrollment {
     private Stage stage;
@@ -39,11 +36,6 @@ public class AddEnrollment {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
-
-        // Populate choice boxes with existing student emails and course names
-        studentEmailChoiceBox = new ChoiceBox<>();
-        courseNameChoiceBox = new ChoiceBox<>();
-        populateChoiceBoxes();
 
         enrollmentDatePicker = new DatePicker();
         certificateIdField = new TextField();
@@ -70,13 +62,6 @@ public class AddEnrollment {
         root.getChildren().add(gridPane);
 
         return new Scene(root, 400, 300);
-    }
-
-    private void populateChoiceBoxes() {
-        List<String> studentEmails = DatabaseConnector.getAllStudentEmails();
-        List<String> courseNames = DatabaseConnector.getAllCourseNames();
-        studentEmailChoiceBox.getItems().addAll(studentEmails);
-        courseNameChoiceBox.getItems().addAll(courseNames);
     }
 
     private void addEnrollment() {
