@@ -81,6 +81,12 @@ public class NavigationBar {
         });
         
         MenuItem addCertificate = new MenuItem("New Certificate");
+        addCertificate.setOnAction(e -> {
+            AddCertificate addCertificateWindow = new AddCertificate(primaryStage);
+            primaryStage.setScene(addCertificateWindow.getAddCertificateScene());
+            primaryStage.show();
+        });
+
         certificatesMenu.getItems().addAll(viewCertificates, addCertificate);
 
         // Add menus to the MenuBar
