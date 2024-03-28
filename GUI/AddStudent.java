@@ -113,7 +113,7 @@ public class AddStudent {
 
         try (Connection connection = DatabaseConnector.getConnection()) {
             if (connection != null) {
-                String sql = "INSERT INTO Student (StudentEmail, StudentName, Birthdate, Gender, Address, Postcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Student (StudentEmail, StudentName, Birthdate, Gender, Address, Postcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, student.getStudentEmail());
                 statement.setString(2, student.getStudentName());
@@ -138,17 +138,51 @@ public class AddStudent {
     }
 
     private boolean validateFields() {
-        if (emailField.getText().isEmpty() || nameField.getText().isEmpty() || birthdatePicker.getValue() == null
+        // Validate email format
+        String email = emailField.getText();
+        if (email.isEmpty() || !isValidEmail(email)) {
+            // Show an alert for invalid email format
+            showAlert("Please enter a valid email address.");
+            return false;
+        }
+        
+        // Validate postcode format
+        String postcode = postcodeField.getText();
+        if (postcode.isEmpty() || !isValidPostcode(postcode)) {
+            // Show an alert for invalid postcode format
+            showAlert("Please enter a valid postcode (e.g., 1234 AB).");
+            return false;
+        }
+
+        // Check other fields
+        if (nameField.getText().isEmpty() || birthdatePicker.getValue() == null
                 || genderChoiceBox.getValue() == null || addressField.getText().isEmpty()
                 || cityField.getText().isEmpty() || countryField.getText().isEmpty()) {
             // Show an alert for incomplete fields
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please fill in all fields.");
-            alert.showAndWait();
+            showAlert("Please fill in all fields.");
             return false;
         }
+        
         return true;
+    }
+    
+    private boolean isValidEmail(String email) {
+        // Regular expression for email validation
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
+    }
+    
+    private boolean isValidPostcode(String postcode) {
+        // Regular expression for postcode validation
+        String postcodeRegex = "^\\d{4}\\s[A-Z]{2}$";
+        return postcode.matches(postcodeRegex);
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
