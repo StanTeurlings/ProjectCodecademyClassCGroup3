@@ -28,6 +28,7 @@ public class Enrollments {
         loadDataFromDatabase();
     }
 
+    @SuppressWarnings("unchecked")
     private void setupTableColumns() {
         TableColumn<Enrollment, String> studentEmailColumn = new TableColumn<>("Student Email");
         studentEmailColumn.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
