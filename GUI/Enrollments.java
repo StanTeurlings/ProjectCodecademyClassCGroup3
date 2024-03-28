@@ -36,9 +36,6 @@ public class Enrollments {
         TableColumn<Enrollment, String> courseNameColumn = new TableColumn<>("Course Name");
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
 
-        TableColumn<Enrollment, String> certificateNameColumn = new TableColumn<>("Certificate Name");
-        certificateNameColumn.setCellValueFactory(new PropertyValueFactory<>("certificateName"));
-
         TableColumn<Enrollment, String> enrollmentDateColumn = new TableColumn<>("Enrollment Date");
         enrollmentDateColumn.setCellValueFactory(new PropertyValueFactory<>("enrollmentDate"));
 
@@ -51,7 +48,7 @@ public class Enrollments {
         TableColumn<Enrollment, String> employeeNameColumn = new TableColumn<>("Employee Name");
         employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("employeeName"));
 
-        table.getColumns().addAll(studentEmailColumn, courseNameColumn, certificateNameColumn,
+        table.getColumns().addAll(studentEmailColumn, courseNameColumn,
                 enrollmentDateColumn, certificateIdColumn, gradeColumn, employeeNameColumn);
         table.setItems(data);
     }
@@ -76,7 +73,6 @@ public class Enrollments {
                     Enrollment enrollment = new Enrollment(
                             rs.getString("StudentEmail"),
                             rs.getString("CourseName"),
-                            rs.getString("CertificateName"),
                             rs.getString("EnrollmentDate"),
                             rs.getInt("CertificateId"),
                             rs.getString("Grade"),
