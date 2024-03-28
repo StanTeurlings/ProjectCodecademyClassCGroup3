@@ -71,6 +71,12 @@ public class NavigationBar {
         });
 
         MenuItem addEnrollment = new MenuItem("New Enrollment");
+        addEnrollment.setOnAction(e -> {
+            AddEnrollment addEnrollmentWindow = new AddEnrollment(primaryStage);
+            primaryStage.setScene(addEnrollmentWindow.getAddEnrollmentScene());
+            primaryStage.show();
+        });
+
         enrollmentsMenu.getItems().addAll(viewEnrollments, addEnrollment);
 
         // Create certificatesMenu items
