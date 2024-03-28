@@ -20,8 +20,9 @@ public class AddStudent {
     private TextField emailField;
     private TextField nameField;
     private DatePicker birthdatePicker;
-    private ChoiceBox<String> genderChoiceBox; // Updated to ChoiceBox
+    private ChoiceBox<String> genderChoiceBox;
     private TextField addressField;
+    private TextField postcodeField;
     private TextField cityField;
     private TextField countryField;
 
@@ -55,9 +56,11 @@ public class AddStudent {
             genderChoiceBox.getItems().add(gender.toString());
         }
 
-
         Label addressLabel = new Label("Address:");
         addressField = new TextField();
+
+        Label postcodeLabel = new Label("Postcode:");
+        postcodeField = new TextField();
 
         Label cityLabel = new Label("City:");
         cityField = new TextField();
@@ -75,14 +78,16 @@ public class AddStudent {
         gridPane.add(new Label("Birthdate:"), 0, 2);
         gridPane.add(birthdatePicker, 1, 2);
         gridPane.add(genderLabel, 0, 3);
-        gridPane.add(genderChoiceBox, 1, 3); // Add ChoiceBox to gridPane
+        gridPane.add(genderChoiceBox, 1, 3);
         gridPane.add(addressLabel, 0, 4);
         gridPane.add(addressField, 1, 4);
-        gridPane.add(cityLabel, 0, 5);
-        gridPane.add(cityField, 1, 5);
-        gridPane.add(countryLabel, 0, 6);
-        gridPane.add(countryField, 1, 6);
-        gridPane.add(addButton, 0, 7);
+        gridPane.add(postcodeLabel, 0, 5);
+        gridPane.add(postcodeField, 1, 5);
+        gridPane.add(cityLabel, 0, 6);
+        gridPane.add(cityField, 1, 6);
+        gridPane.add(countryLabel, 0, 7);
+        gridPane.add(countryField, 1, 7);
+        gridPane.add(addButton, 0, 8);
 
         root.getChildren().add(gridPane);
 
@@ -90,34 +95,38 @@ public class AddStudent {
     }
 
     private void addStudent() {
+        // Validate fields before adding the student
+        if (!validateFields()) {
+            return;
+        }
+
         String email = emailField.getText();
         String name = nameField.getText();
-        Date birthdate = java.sql.Date.valueOf(birthdatePicker.getValue()); // Retrieve selected date from DatePicker
-        Gender gender = Gender.valueOf(genderChoiceBox.getValue().toUpperCase()); // Convert String to Gender enum
+        Date birthdate = java.sql.Date.valueOf(birthdatePicker.getValue());
+        Gender gender = Gender.valueOf(genderChoiceBox.getValue().toUpperCase());
         String address = addressField.getText();
+        String postcode = postcodeField.getText();
         String city = cityField.getText();
         String country = countryField.getText();
 
-        // Create a new Student object
-        Student student = new Student(email, name, birthdate, gender, address, city, country);
+        Student student = new Student(email, name, birthdate, gender, address, postcode, city, country);
 
-        // Insert the student into the database
         try (Connection connection = DatabaseConnector.getConnection()) {
             if (connection != null) {
-                String sql = "INSERT INTO Student (StudentEmail, StudentName, Birthdate, Gender, Address, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String sql = "INSERT INTO Student (StudentEmail, StudentName, Birthdate, Gender, Address, Postcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, student.getStudentEmail());
                 statement.setString(2, student.getStudentName());
                 statement.setDate(3, new java.sql.Date(student.getBirthDate().getTime()));
                 statement.setString(4, student.getGender().toString());
                 statement.setString(5, student.getAddress());
-                statement.setString(6, student.getCity());
-                statement.setString(7, student.getCountry());
+                statement.setString(6, student.getPostcode());
+                statement.setString(7, student.getCity());
+                statement.setString(8, student.getCountry());
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
                     System.out.println("A new student inserted successfully!");
-                    // direct me back to the Students.java page
                     Students studentsPage = new Students(stage);
                     stage.setScene(studentsPage.getStudentLayout());
                 }
@@ -126,5 +135,20 @@ public class AddStudent {
             System.err.println("Error inserting student:");
             ex.printStackTrace();
         }
+    }
+
+    private boolean validateFields() {
+        if (emailField.getText().isEmpty() || nameField.getText().isEmpty() || birthdatePicker.getValue() == null
+                || genderChoiceBox.getValue() == null || addressField.getText().isEmpty()
+                || cityField.getText().isEmpty() || countryField.getText().isEmpty()) {
+            // Show an alert for incomplete fields
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all fields.");
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 }

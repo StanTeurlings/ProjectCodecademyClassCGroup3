@@ -11,17 +11,19 @@ public class Student {
     private Date birthDate;
     private Gender gender;
     private String address;
+    private String postcode;
     private String city;
     private String country;
     private ArrayList<Course> watchedCourses;
 
     public Student(String studentEmail, String studentName, Date birthDate,
-                   Gender gender, String address, String city, String country) {
+                   Gender gender, String address, String postcode, String city, String country) {
         this.studentEmail = studentEmail;
         this.studentName = studentName;
         this.birthDate = birthDate;
         this.gender = gender;
         this.address = address;
+        this.postcode = postcode;
         this.city = city;
         this.country = country;
         this.watchedCourses = new ArrayList<>();
@@ -65,6 +67,14 @@ public class Student {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public String getCity() {

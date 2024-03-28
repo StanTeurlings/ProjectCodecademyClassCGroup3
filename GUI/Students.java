@@ -54,6 +54,9 @@ public class Students {
         TableColumn<Student, String> addressColumn = new TableColumn<>("Address");
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
 
+        TableColumn<Student, String> postcodeColumn = new TableColumn<>("Postcode");
+        postcodeColumn.setCellValueFactory(new PropertyValueFactory<>("postcode"));
+
         TableColumn<Student, String> cityColumn = new TableColumn<>("City");
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
 
@@ -84,7 +87,7 @@ public class Students {
             }
         });
 
-        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn, countryColumn, actionColumn);
+        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, postcodeColumn, cityColumn, countryColumn, actionColumn);
         table.setItems(data);
     }
 
@@ -100,6 +103,7 @@ public class Students {
                         rs.getDate("Birthdate"),
                         Gender.valueOf(rs.getString("Gender")),
                         rs.getString("Address"),
+                        rs.getString("Postcode"),
                         rs.getString("City"),
                         rs.getString("Country"));
                 data.add(student);
@@ -152,6 +156,7 @@ public class Students {
             genderField.setValue(student.getGender());
 
             TextField addressField = new TextField(student.getAddress());
+            TextField postcodeField = new TextField(student.getPostcode());
             TextField cityField = new TextField(student.getCity());
             TextField countryField = new TextField(student.getCountry());
     
@@ -163,10 +168,12 @@ public class Students {
             grid.add(genderField, 1, 2);
             grid.add(new Label("Address:"), 0, 3);
             grid.add(addressField, 1, 3);
-            grid.add(new Label("City:"), 0, 4);
-            grid.add(cityField, 1, 4);
-            grid.add(new Label("Country:"), 0, 5);
-            grid.add(countryField, 1, 5);
+            grid.add(new Label("Postcode:"), 0, 4);
+            grid.add(postcodeField, 1, 4);
+            grid.add(new Label("City:"), 0, 5);
+            grid.add(cityField, 1, 5);
+            grid.add(new Label("Country:"), 0, 6);
+            grid.add(countryField, 1, 6);
     
             dialog.getDialogPane().setContent(grid);
     
@@ -178,6 +185,7 @@ public class Students {
                     Gender gender = Gender.valueOf(genderField.getValue().toString());
                     student.setGender(gender);
                     student.setAddress(addressField.getText());
+                    student.setPostcode(postcodeField.getText());
                     student.setCity(cityField.getText());
                     student.setCountry(countryField.getText());
                     return student;
@@ -197,18 +205,19 @@ public class Students {
     }       
 
     private void updateStudentInDatabase(Student student) {
-        String sql = "UPDATE Student SET StudentName = ?, Birthdate = ?, Gender = ?, Address = ?, City = ?, Country = ? WHERE StudentEmail = ?";
+        String sql = "UPDATE Student SET StudentName = ?, Birthdate = ?, Gender = ?, Address = ?, Postcode = ?, City = ?, Country = ? WHERE StudentEmail = ?";
     
         try (Connection conn = DatabaseConnector.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, student.getStudentName());
             stmt.setDate(2, new java.sql.Date(student.getBirthDate().getTime()));
             stmt.setString(3, student.getGender().toString());
             stmt.setString(4, student.getAddress());
-            stmt.setString(5, student.getCity());
-            stmt.setString(6, student.getCountry());
-            stmt.setString(7, student.getStudentEmail());
+            stmt.setString(5, student.getPostcode());
+            stmt.setString(6, student.getCity());
+            stmt.setString(7, student.getCountry());
+            stmt.setString(8, student.getStudentEmail());
     
             stmt.executeUpdate();
         } catch (SQLException e) {
