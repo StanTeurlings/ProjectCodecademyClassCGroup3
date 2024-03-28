@@ -151,8 +151,6 @@ public class Students {
             // Set the default value to the current gender of the student
             genderField.setValue(student.getGender());
 
-
-    
             TextField addressField = new TextField(student.getAddress());
             TextField cityField = new TextField(student.getCity());
             TextField countryField = new TextField(student.getCountry());
