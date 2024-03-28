@@ -23,6 +23,7 @@ public class NavigationBar {
         Menu coursesMenu = new Menu("Courses");
         Menu enrollmentsMenu = new Menu("Enrollments");
         Menu certificatesMenu = new Menu("Certificates");
+        Menu contentsMenu = new Menu("Contents");
 
         // Create menu items for Home menu
         MenuItem homeMenuItem = new MenuItem("Back to Home");
@@ -95,8 +96,24 @@ public class NavigationBar {
 
         certificatesMenu.getItems().addAll(viewCertificates, addCertificate);
 
+        // Create contentMenu items
+        MenuItem viewContents = new MenuItem("All Contents");
+        viewContents.setOnAction(e -> {
+            Contents contentsPage = new Contents(primaryStage);
+            primaryStage.setScene(contentsPage.getContentsLayout());
+        });
+
+        MenuItem addContent = new MenuItem("New Content");
+        addContent.setOnAction(e -> {
+            AddContent addContentWindow = new AddContent(primaryStage);
+            primaryStage.setScene(addContentWindow.getAddContentScene());
+            primaryStage.show();
+        });
+
+        contentsMenu.getItems().addAll(viewContents, addContent);
+
         // Add menus to the MenuBar
-        menuBar.getMenus().addAll(homeMenu, studentsMenu, coursesMenu, enrollmentsMenu, certificatesMenu);
+        menuBar.getMenus().addAll(homeMenu, studentsMenu, coursesMenu, enrollmentsMenu, certificatesMenu, contentsMenu);
 
         return menuBar;
     }
