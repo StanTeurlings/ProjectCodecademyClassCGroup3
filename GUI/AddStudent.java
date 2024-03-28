@@ -91,7 +91,7 @@ public class AddStudent {
 
         root.getChildren().add(gridPane);
 
-        return new Scene(root, 400, 300);
+        return new Scene(root, 800, 600);
     }
 
     private void addStudent() {
