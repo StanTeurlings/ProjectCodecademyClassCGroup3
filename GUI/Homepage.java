@@ -43,7 +43,7 @@ public class Homepage extends Application {
         VBox layout = new VBox(10, studentsButton, coursesButton, enrollmentsButton, certificatesButton);
         layout.setAlignment(Pos.CENTER);
 
-        Scene scene = new Scene(layout, 1200, 800);
+        Scene scene = new Scene(layout, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
