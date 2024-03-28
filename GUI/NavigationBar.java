@@ -57,7 +57,14 @@ public class NavigationBar {
             Courses coursesPage = new Courses(primaryStage);
             primaryStage.setScene(coursesPage.getCoursesLayout());
         });
+
         MenuItem addCourse = new MenuItem("New Course");
+        addCourse.setOnAction(e -> {
+            AddCourses addCoursesWindow = new AddCourses(primaryStage);
+            primaryStage.setScene(addCoursesWindow.getAddCourseScene());
+            primaryStage.show();
+        });
+
         MenuItem editCourse = new MenuItem("Edit Course");
         MenuItem deleteCourse = new MenuItem("Delete Course");
         coursesMenu.getItems().addAll(viewCourses, addCourse, editCourse, deleteCourse);
