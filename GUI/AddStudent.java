@@ -1,10 +1,7 @@
 package GUI;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,7 +19,7 @@ public class AddStudent {
     private TextField emailField;
     private TextField nameField;
     private DatePicker birthdatePicker;
-    private TextField genderField;
+    private ChoiceBox<String> genderChoiceBox; // Updated to ChoiceBox
     private TextField addressField;
     private TextField cityField;
     private TextField countryField;
@@ -51,7 +48,8 @@ public class AddStudent {
         birthdatePicker = new DatePicker(); // DatePicker for birthdate
 
         Label genderLabel = new Label("Gender:");
-        genderField = new TextField();
+        genderChoiceBox = new ChoiceBox<>(); // Initialize ChoiceBox
+        genderChoiceBox.getItems().addAll("Male", "Female", "Other"); // Add options
 
         Label addressLabel = new Label("Address:");
         addressField = new TextField();
@@ -72,7 +70,7 @@ public class AddStudent {
         gridPane.add(new Label("Birthdate:"), 0, 2);
         gridPane.add(birthdatePicker, 1, 2);
         gridPane.add(genderLabel, 0, 3);
-        gridPane.add(genderField, 1, 3);
+        gridPane.add(genderChoiceBox, 1, 3); // Add ChoiceBox to gridPane
         gridPane.add(addressLabel, 0, 4);
         gridPane.add(addressField, 1, 4);
         gridPane.add(cityLabel, 0, 5);
@@ -90,7 +88,7 @@ public class AddStudent {
         String email = emailField.getText();
         String name = nameField.getText();
         Date birthdate = java.sql.Date.valueOf(birthdatePicker.getValue()); // Retrieve selected date from DatePicker
-        String gender = genderField.getText();
+        String gender = genderChoiceBox.getValue(); // Retrieve selected value from ChoiceBox
         String address = addressField.getText();
         String city = cityField.getText();
         String country = countryField.getText();
@@ -105,7 +103,7 @@ public class AddStudent {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, student.getStudentEmail());
                 statement.setString(2, student.getStudentName());
-                statement.setDate(3, (java.sql.Date) student.getBirthDate());
+                statement.setDate(3, new java.sql.Date(student.getBirthDate().getTime()));
                 statement.setString(4, student.getGender());
                 statement.setString(5, student.getAddress());
                 statement.setString(6, student.getCity());
