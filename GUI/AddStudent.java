@@ -13,6 +13,7 @@ import java.util.Date;
 
 import Database.DatabaseConnector;
 import Domain.Class.Student;
+import Domain.Enummeration.Gender;
 
 public class AddStudent {
     private Stage stage;
@@ -49,7 +50,11 @@ public class AddStudent {
 
         Label genderLabel = new Label("Gender:");
         genderChoiceBox = new ChoiceBox<>(); // Initialize ChoiceBox
-        genderChoiceBox.getItems().addAll("Male", "Female", "Other"); // Add options
+        // Add options from the Gender enum
+        for (Gender gender : Gender.values()) {
+            genderChoiceBox.getItems().add(gender.toString());
+        }
+
 
         Label addressLabel = new Label("Address:");
         addressField = new TextField();
@@ -88,7 +93,7 @@ public class AddStudent {
         String email = emailField.getText();
         String name = nameField.getText();
         Date birthdate = java.sql.Date.valueOf(birthdatePicker.getValue()); // Retrieve selected date from DatePicker
-        String gender = genderChoiceBox.getValue(); // Retrieve selected value from ChoiceBox
+        Gender gender = Gender.valueOf(genderChoiceBox.getValue().toUpperCase()); // Convert String to Gender enum
         String address = addressField.getText();
         String city = cityField.getText();
         String country = countryField.getText();
@@ -104,7 +109,7 @@ public class AddStudent {
                 statement.setString(1, student.getStudentEmail());
                 statement.setString(2, student.getStudentName());
                 statement.setDate(3, new java.sql.Date(student.getBirthDate().getTime()));
-                statement.setString(4, student.getGender());
+                statement.setString(4, student.getGender().toString());
                 statement.setString(5, student.getAddress());
                 statement.setString(6, student.getCity());
                 statement.setString(7, student.getCountry());

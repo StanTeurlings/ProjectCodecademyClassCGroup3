@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import Domain.Class.Course;
 import Domain.Class.Student;
 import Domain.Enummeration.Difficulty;
+import Domain.Enummeration.Gender;
 
 public class DatabaseHelper {
 
@@ -24,7 +25,7 @@ public class DatabaseHelper {
                             rs.getString("StudentEmail"),
                             rs.getString("StudentName"),
                             rs.getDate("Birthdate"),
-                            rs.getString("Gender"),
+                            Gender.valueOf(rs.getString("Gender")),
                             rs.getString("Address"),
                             rs.getString("City"),
                             rs.getString("Country"));
