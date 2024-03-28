@@ -112,8 +112,9 @@ public class AddStudent {
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) {
                     System.out.println("A new student inserted successfully!");
-                    // Optionally, you can close the stage after insertion
-                    stage.close();
+                    // direct me back to the Students.java page
+                    Students studentsPage = new Students(stage);
+                    stage.setScene(studentsPage.getStudentLayout());
                 }
             }
         } catch (SQLException ex) {
