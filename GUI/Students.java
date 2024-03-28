@@ -3,7 +3,6 @@ package GUI;
 import Database.DatabaseConnector;
 import Domain.Class.Student;
 import Domain.Enummeration.Gender;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -39,23 +38,6 @@ public class Students {
 
     @SuppressWarnings("unchecked")
     private void setupTableColumns() {
-        TableColumn<Student, Boolean> checkBoxColumn = new TableColumn<>();
-        checkBoxColumn.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue() != null));
-        checkBoxColumn.setCellFactory(col -> new TableCell<Student, Boolean>() {
-            private final CheckBox checkBox = new CheckBox();
-
-            @Override
-            protected void updateItem(Boolean item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(checkBox);
-                    checkBox.setSelected(item);
-                }
-            }
-        });
-
         TableColumn<Student, String> emailColumn = new TableColumn<>("Email");
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("studentEmail"));
 
@@ -102,7 +84,7 @@ public class Students {
             }
         });
 
-        table.getColumns().addAll(checkBoxColumn, emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn, countryColumn, actionColumn);
+        table.getColumns().addAll(emailColumn, nameColumn, birthdateColumn, genderColumn, addressColumn, cityColumn, countryColumn, actionColumn);
         table.setItems(data);
     }
 
