@@ -99,6 +99,11 @@ public class Students {
         borderPane.setCenter(table);
 
         Scene scene = new Scene(borderPane);
+
+        primaryStage.setTitle("Students");
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+
         return scene;
     }
 }
