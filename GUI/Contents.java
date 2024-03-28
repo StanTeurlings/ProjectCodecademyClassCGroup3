@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -19,7 +18,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Optional;
 
 public class Contents {
     private final TableView<Content> table = new TableView<>();
@@ -85,13 +83,16 @@ public class Contents {
                 return;
             }
 
-            try (PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Content JOIN Course ON Content.CourseID = Course.CourseID")) {
+            try (PreparedStatement stmt = conn.prepareStatement("SELECT Content.*, Course.CourseName, Course.CourseSubject, Course.IntroductionText, Course.Difficulty \n" + //
+                                "FROM Content\n" + //
+                                "INNER JOIN Course ON Content.CourseName = Course.CourseName\n" + //
+                                "")) {
                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
                     Course course = new Course(rs.getString("CourseName"), rs.getString("CourseSubject"), rs.getString("IntroductionText"), Difficulty.valueOf(rs.getString("Difficulty")));
                     Content content = new Content(
-                        rs.getInt("ContentID"),
+                        rs.getInt("ContentId"),
                         rs.getDate("PublicationDate"),
                         rs.getString("Status"),
                         rs.getString("Title"),
@@ -113,11 +114,6 @@ public class Contents {
         borderPane.setCenter(table);
 
         Scene scene = new Scene(borderPane);
-
-        primaryStage.setTitle("Contents");
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
-
         return scene;
     }
 
@@ -128,7 +124,4 @@ public class Contents {
     private void deleteContent(Content content) {
         // Similar to deleteCourse, but for deleting Content
     }
-
-    // Additional methods (updateContentInDatabase, deleteContentFromDatabase, refreshTableData, etc.)
-    // Implement these similar to their counterparts in Courses.java
 }

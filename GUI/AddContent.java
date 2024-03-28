@@ -18,13 +18,14 @@ import Database.DatabaseConnector;
 import Domain.Class.Content;
 import Domain.Class.Course;
 import Domain.Enummeration.Difficulty;
+import Domain.Enummeration.Status;
 
 public class AddContent {
     private Stage stage;
     private TextField titleField;
     private TextArea descriptionArea;
     private DatePicker publicationDatePicker;
-    private ChoiceBox<Difficulty> statusChoiceBox;
+    private ChoiceBox<Status> statusChoiceBox;
     private ChoiceBox<Course> courseNameChoiceBox;
 
     public AddContent(Stage stage) {
@@ -32,44 +33,34 @@ public class AddContent {
     }
 
     public Scene getAddContentScene() {
-        // Similar setup to AddCourses for navigation bar and root layout
         NavigationBar navigationBar = new NavigationBar(stage);
         VBox root = new VBox();
         root.getChildren().add(navigationBar.getMenuBar());
 
-        // GridPane for content details
         GridPane gridPane = new GridPane();
         gridPane.setHgap(10);
         gridPane.setVgap(10);
 
-        // Title field
         Label titleLabel = new Label("Title:");
         titleField = new TextField();
 
-        // Description area
         Label descriptionLabel = new Label("Description:");
         descriptionArea = new TextArea();
 
-        // Publication Date picker
         Label publicationDateLabel = new Label("Publication Date:");
         publicationDatePicker = new DatePicker();
 
-        // Status choice box (using Difficulty enum)
         Label statusLabel = new Label("Status:");
         statusChoiceBox = new ChoiceBox<>();
-        statusChoiceBox.getItems().addAll(Difficulty.values()); // Add enum values to choice box
+        statusChoiceBox.getItems().addAll(Status.values());
 
-        // Course choice box
         Label courseLabel = new Label("Course:");
         courseNameChoiceBox = new ChoiceBox<>();
-        // Assume you have a method to load courses into the choice box
-        populateCourseNames(courseNameChoiceBox);
+        populateCourses();
 
-        // Add Content button
         Button addButton = new Button("Add Content");
         addButton.setOnAction(e -> addContent());
 
-        // Adding components to the grid
         gridPane.add(titleLabel, 0, 0);
         gridPane.add(titleField, 1, 0);
         gridPane.add(descriptionLabel, 0, 1);
@@ -87,51 +78,11 @@ public class AddContent {
         return new Scene(root, 800, 600);
     }
 
-    private void addContent() {
-        // Retrieve data from fields
-        String title = titleField.getText();
-        String description = descriptionArea.getText();
-        Date publicationDate = java.sql.Date.valueOf(publicationDatePicker.getValue());
-        Difficulty status = statusChoiceBox.getValue(); // Using Difficulty enum
-        Course course = courseNameChoiceBox.getValue();
-
-        // Validation
-        if (title.isEmpty() || description.isEmpty() || publicationDate == null || status == null || course == null) {
-            System.err.println("All fields must be filled.");
-            return;
-        }
-
-        // Create a new Content object
-        Content content = new Content(0, publicationDate, status.name(), title, description, course);
-
-        // Insert into the database
-        try (Connection connection = DatabaseConnector.getConnection()) {
-            if (connection != null) {
-                String sql = "INSERT INTO Content (Title, Description, PublicationDate, Status, CourseName) VALUES (?, ?, ?, ?, ?)";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, content.getTitle());
-                statement.setString(2, content.getDescription());
-                statement.setDate(3, new java.sql.Date(content.getPublicationDate().getTime()));
-                statement.setString(4, content.getStatus()); // Save status as string
-                statement.setString(5, content.getCourse().getCourseName()); // Assuming Course has getCourseId method
-
-                int rowsInserted = statement.executeUpdate();
-                if (rowsInserted > 0) {
-                    System.out.println("New content added successfully!");
-                    // Redirect or update UI as needed
-                }
-            }
-        } catch (SQLException ex) {
-            System.err.println("Error inserting content:");
-            ex.printStackTrace();
-        }
-    }
-
-    private void populateCourseNames(ChoiceBox<Course> choiceBox) {
+    private void populateCourses() {
         ObservableList<Course> courses = FXCollections.observableArrayList();
         try (Connection connection = DatabaseConnector.getConnection()) {
             if (connection != null) {
-                String sql = "SELECT * FROM Course"; // Modify the query to select all fields
+                String sql = "SELECT * FROM Course";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
@@ -139,14 +90,51 @@ public class AddContent {
                     String courseSubject = resultSet.getString("CourseSubject");
                     String introductionText = resultSet.getString("IntroductionText");
                     Difficulty difficulty = Difficulty.valueOf(resultSet.getString("Difficulty"));
+
                     Course course = new Course(courseName, courseSubject, introductionText, difficulty);
                     courses.add(course);
                 }
-                choiceBox.setItems(courses); // Set items to choice box
+                courseNameChoiceBox.setItems(courses);
             }
         } catch (SQLException ex) {
             System.err.println("Error populating courses:");
             ex.printStackTrace();
         }
-    }    
+    }
+
+    private void addContent() {
+        String title = titleField.getText();
+        String description = descriptionArea.getText();
+        Date publicationDate = java.sql.Date.valueOf(publicationDatePicker.getValue());
+        Course course = courseNameChoiceBox.getValue();
+
+        if (title.isEmpty() || description.isEmpty() || publicationDate == null || course == null) {
+            System.err.println("All fields must be filled.");
+            return;
+        }
+
+        Status status = statusChoiceBox.getValue();
+
+        Content content = new Content(0, publicationDate, status.name(), title, description, course);
+
+        try (Connection connection = DatabaseConnector.getConnection()) {
+            if (connection != null) {
+                String sql = "INSERT INTO Content (Title, Description, PublicationDate, Status, CourseName) VALUES (?, ?, ?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, content.getTitle());
+                statement.setString(2, content.getDescription());
+                statement.setDate(3, new java.sql.Date(content.getPublicationDate().getTime()));
+                statement.setString(4, content.getStatus());
+                statement.setString(5, content.getCourse().getCourseName());
+
+                int rowsInserted = statement.executeUpdate();
+                if (rowsInserted > 0) {
+                    System.out.println("New content added successfully!");
+                }
+            }
+        } catch (SQLException ex) {
+            System.err.println("Error inserting content:");
+            ex.printStackTrace();
+        }
+    }
 }
