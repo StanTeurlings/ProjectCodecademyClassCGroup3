@@ -11,7 +11,7 @@ public class Homepage extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Student Management System");
+        primaryStage.setTitle("Tijn Van de Velde 2213640 - Stan Teurlings 2213315 - Emre Ciftci ?");
 
         // Buttons for different options
         Button studentsButton = new Button("Students");
