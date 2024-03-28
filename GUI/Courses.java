@@ -30,10 +30,10 @@ public class Courses {
 
     @SuppressWarnings("unchecked")
     private void setupTableColumns() {
-        TableColumn<Course, String> courseNameColumn = new TableColumn<>("Course Name");
+        TableColumn<Course, String> courseNameColumn = new TableColumn<>("Name");
         courseNameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
 
-        TableColumn<Course, String> courseSubjectColumn = new TableColumn<>("Course Subject");
+        TableColumn<Course, String> courseSubjectColumn = new TableColumn<>("Subject");
         courseSubjectColumn.setCellValueFactory(new PropertyValueFactory<>("courseSubject"));
 
         TableColumn<Course, String> introductionTextColumn = new TableColumn<>("Introduction Text");
@@ -90,6 +90,11 @@ public class Courses {
         borderPane.setCenter(table);
 
         Scene scene = new Scene(borderPane);
+
+        primaryStage.setTitle("Courses");
+        primaryStage.setWidth(800);
+        primaryStage.setHeight(600);
+
         return scene;
     }
 }
