@@ -1,0 +1,32 @@
+INSERT queries:
+INSERT INTO Student (StudentEmail, StudentName, Birthdate, Gender, Address, Postcode, City, Country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+INSERT INTO Course (CourseName, CourseSubject, IntroductionText, Difficulty) VALUES (?, ?, ?, ?)
+INSERT INTO Certificate (CertificateName) VALUES (?)
+INSERT INTO Content (Title, Description, PublicationDate, Status, CourseName) VALUES (?, ?, ?, ?, ?)
+INSERT INTO Enrollment (StudentEmail, CourseName, CertificateId, EnrollmentDate, Grade, EmployeeName) VALUES (?, ?, ?, ?, ?, ?)
+
+UPDATE queries:
+UPDATE Student SET StudentName = ?, Birthdate = ?, Gender = ?, Address = ?, Postcode = ?, City = ?, Country = ? WHERE StudentEmail = ?
+UPDATE Course SET CourseName = ?, CourseSubject = ?, IntroductionText = ?, Difficulty = ? WHERE CourseName = ?
+UPDATE Certificate SET CertificateName = ? WHERE CertificateId = ?
+
+DELETE queries:
+DELETE FROM Student WHERE StudentEmail = ?
+DELETE FROM Course WHERE CourseName = ?
+DELETE FROM Certificate WHERE CertificateId = ?
+
+For getting information:
+SELECT * FROM Student
+SELECT * FROM Course
+SELECT * FROM Certificate
+SELECT * FROM Enrollment
+
+To get information to populate fields:
+SELECT StudentEmail FROM Student
+SELECT CourseName FROM Course
+SELECT CertificateId FROM Certificate
+
+
+SELECT Content.*, Course.CourseName, Course.CourseSubject, Course.IntroductionText, Course.Difficulty \n" + //
+                                "FROM Content\n" + //
+                                "INNER JOIN Course ON Content.CourseName = Course.CourseName
